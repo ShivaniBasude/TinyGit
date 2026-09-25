@@ -32,6 +32,9 @@ def main():
     checkout_parser.add_argument("-b", action="store_true", help="Create and checkout a new branch")
     checkout_parser.add_argument("name", help="Branch name to checkout")
     
+    # diff command
+    diff_parser = subparsers.add_parser("diff", help="Show changes between commits, commit and working tree, etc")
+    
     args = parser.parse_args()
     
     if args.command == "init":
@@ -63,6 +66,9 @@ def main():
     elif args.command == "checkout":
         from tinygit import checkout
         checkout.checkout(args.name, create=args.b)
+    elif args.command == "diff":
+        from tinygit import diff
+        diff.diff()
     else:
         print(f"tinygit: '{args.command}' is not a tinygit command.")
         sys.exit(1)
