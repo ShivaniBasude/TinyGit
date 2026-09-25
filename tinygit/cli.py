@@ -23,6 +23,15 @@ def main():
     # log command
     log_parser = subparsers.add_parser("log", help="Show commit logs")
     
+    # branch command
+    branch_parser = subparsers.add_parser("branch", help="List or create branches")
+    branch_parser.add_argument("name", nargs="?", help="Name of the new branch")
+    
+    # checkout command
+    checkout_parser = subparsers.add_parser("checkout", help="Switch branches or restore working tree files")
+    checkout_parser.add_argument("-b", action="store_true", help="Create and checkout a new branch")
+    checkout_parser.add_argument("name", help="Branch name to checkout")
+    
     args = parser.parse_args()
     
     if args.command == "init":
@@ -39,6 +48,21 @@ def main():
     elif args.command == "log":
         from tinygit import commit
         commit.log()
+    elif args.command == "branch":
+        from tinygit import refs, commit
+        if args.name:
+            refs.create_branch(args.name)
+        else:
+            branches = refs.list_branches()
+            current = commit.get_head_ref().split("/")[-1] if commit.get_head_ref() else ""
+            for b in branches:
+                if b == current:
+                    print(f"* {b}")
+                else:
+                    print(f"  {b}")
+    elif args.command == "checkout":
+        from tinygit import checkout
+        checkout.checkout(args.name, create=args.b)
     else:
         print(f"tinygit: '{args.command}' is not a tinygit command.")
         sys.exit(1)
