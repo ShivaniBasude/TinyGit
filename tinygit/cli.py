@@ -39,6 +39,10 @@ def main():
     merge_parser = subparsers.add_parser("merge", help="Join two or more development histories together")
     merge_parser.add_argument("branch", help="Branch to merge into current branch")
     
+    # serve command
+    serve_parser = subparsers.add_parser("serve", help="Start the web visualizer")
+    serve_parser.add_argument("--port", type=int, default=8080, help="Port to run the server on")
+    
     args = parser.parse_args()
     
     if args.command == "init":
@@ -76,6 +80,15 @@ def main():
     elif args.command == "merge":
         from tinygit import merge
         merge.merge(args.branch)
+    elif args.command == "serve":
+        import sys
+        import pathlib
+        # Append the project root to sys.path so visualizer can import tinygit
+        repo_root = str(pathlib.Path(__file__).parent.parent.resolve())
+        if repo_root not in sys.path:
+            sys.path.insert(0, repo_root)
+        from visualizer import server
+        server.run(port=args.port)
     else:
         print(f"tinygit: '{args.command}' is not a tinygit command.")
         sys.exit(1)

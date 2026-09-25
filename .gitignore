@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.tinygit/
+*.swp
+.DS_Store
+GIT_CONCEPTS.md
+INTERVIEW_GUIDE.md
+RESUME_BULLETS.MD
+PRD.md

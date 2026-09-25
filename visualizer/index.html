@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyGit Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>TinyGit Repository</h1>
+        <div id="repo-info">
+            <span class="badge">Branch: <strong id="current-branch">loading...</strong></span>
+            <span class="badge">Latest Commit: <strong id="latest-commit">loading...</strong></span>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Tracked Files</h2>
+            <ul id="file-list">
+                <!-- Files will be populated here -->
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <h2>Commit History</h2>
+            <div id="commit-graph">
+                <!-- Commits will be populated here -->
+            </div>
+            
+            <div id="commit-details" class="hidden">
+                <h3>Commit Details</h3>
+                <p><strong>Hash:</strong> <span id="detail-hash"></span></p>
+                <p><strong>Author:</strong> <span id="detail-author"></span></p>
+                <p><strong>Message:</strong></p>
+                <pre id="detail-message"></pre>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
