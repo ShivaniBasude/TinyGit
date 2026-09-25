@@ -35,6 +35,10 @@ def main():
     # diff command
     diff_parser = subparsers.add_parser("diff", help="Show changes between commits, commit and working tree, etc")
     
+    # merge command
+    merge_parser = subparsers.add_parser("merge", help="Join two or more development histories together")
+    merge_parser.add_argument("branch", help="Branch to merge into current branch")
+    
     args = parser.parse_args()
     
     if args.command == "init":
@@ -69,6 +73,9 @@ def main():
     elif args.command == "diff":
         from tinygit import diff
         diff.diff()
+    elif args.command == "merge":
+        from tinygit import merge
+        merge.merge(args.branch)
     else:
         print(f"tinygit: '{args.command}' is not a tinygit command.")
         sys.exit(1)
